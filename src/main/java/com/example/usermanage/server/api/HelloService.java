@@ -1,8 +1,8 @@
-package com.example.usermanage.service;
+package com.example.usermanage.server.api;
 
 /**
  * User: wangjinshuai
- * Time: 2022-05-11 9:18 PM
+ * Time: 2022-09-01 9:18 PM
  * Email: jinshuaiwang@gmail.com
  */
 public interface HelloService {

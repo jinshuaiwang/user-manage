@@ -1,6 +1,6 @@
-package com.example.usermanage.service.impl;
+package com.example.usermanage.server.service.impl;
 
-import com.example.usermanage.service.HelloService;
+import com.example.usermanage.server.api.HelloService;
 import org.springframework.stereotype.Service;
 
 /**
