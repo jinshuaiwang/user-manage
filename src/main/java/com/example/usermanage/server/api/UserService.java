@@ -32,4 +32,12 @@ public interface UserService {
      * @return
      */
     List<User> getUserByDTO(UserDTO userDTO) throws Exception;
+
+    /**
+     * 删除用户
+     * @param userDTO
+     * @return
+     * @throws Exception
+     */
+    Integer deleteUser(UserDTO userDTO) throws Exception;
 }

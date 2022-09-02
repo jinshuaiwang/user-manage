@@ -21,11 +21,34 @@ public class UserDTO {
      */
     private String email;
 
+    /**
+     * @see com.example.usermanage.server.service.enums.UserStatusEnum
+     * 用户状态
+     */
+    private Integer userStatus;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
 
     public static final class UserDTOBuilder {
         private Long id;
         private String name;
         private String email;
+        private Integer userStatus;
 
         private UserDTOBuilder() {
         }
@@ -49,25 +72,19 @@ public class UserDTO {
             return this;
         }
 
+        public UserDTOBuilder withUserStatus(Integer userStatus) {
+            this.userStatus = userStatus;
+            return this;
+        }
+
         public UserDTO build() {
             UserDTO userDTO = new UserDTO();
-            userDTO.name = this.name;
+            userDTO.userStatus = this.userStatus;
             userDTO.id = this.id;
+            userDTO.name = this.name;
             userDTO.email = this.email;
             return userDTO;
         }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override
@@ -76,6 +93,9 @@ public class UserDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", userStatus=" + userStatus +
                 '}';
     }
+
+
 }

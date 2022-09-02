@@ -74,4 +74,14 @@ public class UserTests {
 
         Assert.assertTrue(count > 0);
     }
+
+    @Test
+    public void testDeleteUser() throws Exception {
+        UserDTO userDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withId(4L)
+                .build();
+
+        Integer count = userService.deleteUser(userDTO);
+        Assert.assertTrue(count > 0);
+    }
 }

@@ -4,6 +4,7 @@ import com.example.usermanage.server.api.UserService;
 import com.example.usermanage.server.service.convert.UserConvert;
 import com.example.usermanage.server.service.dto.UserDTO;
 import com.example.usermanage.server.service.entity.User;
+import com.example.usermanage.server.service.enums.UserStatusEnum;
 import com.example.usermanage.server.service.exception.BizException;
 import com.example.usermanage.server.service.repository.UserRepository;
 import com.google.common.base.Preconditions;
@@ -58,6 +59,24 @@ public class UserServiceImpl implements UserService {
         Preconditions.checkNotNull(userDTO, "用户信息不能为空");
         Preconditions.checkNotNull(userDTO.getId(), "用户标示不能为空");
 
-        return userRepository.updateUser(userDTO);
+        UserDTO updateDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withName(userDTO.getName())
+                .withId(userDTO.getId())
+                .build();
+
+        return userRepository.updateUser(updateDTO);
+    }
+
+    @Override
+    public Integer deleteUser(UserDTO userDTO) throws Exception {
+        Preconditions.checkNotNull(userDTO, "用户信息不能为空");
+        Preconditions.checkNotNull(userDTO.getId(), "用户标示不能为空");
+
+        UserDTO deleteDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withUserStatus(UserStatusEnum.DELETED.getStatus())
+                .withId(userDTO.getId())
+                .build();
+
+        return userRepository.updateUser(deleteDTO);
     }
 }

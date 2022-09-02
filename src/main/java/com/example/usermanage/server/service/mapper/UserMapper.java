@@ -31,6 +31,7 @@ public interface UserMapper {
             "<set> " ,
             "<if test='userDTO.name != null'>`name`=#{userDTO.name}, </if> " ,
             "<if test='userDTO.email != null'>email=#{userDTO.email}, </if> " ,
+            "<if test='userDTO.userStatus != null'>user_status=#{userDTO.userStatus}, </if> " ,
             "</set> " ,
             "<where> id = #{userDTO.id} </where> " ,
             "</script>"})
