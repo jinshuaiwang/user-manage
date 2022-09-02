@@ -21,11 +21,32 @@ public class User {
      */
     private String email;
 
+    /**
+     * 用状态
+     */
+    private Integer userStatus;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
 
     public static final class UserBuilder {
         private Long id;
         private String name;
         private String email;
+        private Integer userStatus;
 
         private UserBuilder() {
         }
@@ -49,11 +70,17 @@ public class User {
             return this;
         }
 
+        public UserBuilder withUserStatus(Integer userStatus) {
+            this.userStatus = userStatus;
+            return this;
+        }
+
         public User build() {
             User user = new User();
             user.name = this.name;
-            user.email = this.email;
+            user.userStatus = this.userStatus;
             user.id = this.id;
+            user.email = this.email;
             return user;
         }
     }
@@ -64,6 +91,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", userStatus=" + userStatus +
                 '}';
     }
 }

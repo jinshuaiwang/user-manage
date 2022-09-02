@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("select a.id, a.`name`, a.email from common_user a where a.id = #{userId}")
+    @Select("select a.id, a.`name`, a.email, a.user_status as userStatus from common_user a where a.id = #{userId}")
     User getUserById(@Param("userId") Long userId);
 
     @Select({"<script>",

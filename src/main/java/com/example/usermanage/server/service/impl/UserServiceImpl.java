@@ -59,6 +59,16 @@ public class UserServiceImpl implements UserService {
         Preconditions.checkNotNull(userDTO, "用户信息不能为空");
         Preconditions.checkNotNull(userDTO.getId(), "用户标示不能为空");
 
+        User user = userRepository.getUserById(userDTO.getId());
+
+        if (user == null) {
+            throw new BizException("用户不存在，无法修改");
+        }
+
+        if (UserStatusEnum.DELETED.getStatus().equals(user.getUserStatus())) {
+            throw new BizException("用户已删除，无法修改");
+        }
+
         UserDTO updateDTO = UserDTO.UserDTOBuilder.anUserDTO()
                 .withName(userDTO.getName())
                 .withId(userDTO.getId())
@@ -71,6 +81,16 @@ public class UserServiceImpl implements UserService {
     public Integer deleteUser(UserDTO userDTO) throws Exception {
         Preconditions.checkNotNull(userDTO, "用户信息不能为空");
         Preconditions.checkNotNull(userDTO.getId(), "用户标示不能为空");
+
+        User user = userRepository.getUserById(userDTO.getId());
+
+        if (user == null) {
+            throw new BizException("用户不存在，无法删除");
+        }
+
+        if (UserStatusEnum.DELETED.getStatus().equals(user.getUserStatus())) {
+            throw new BizException("用户已删除，无需重复删除");
+        }
 
         UserDTO deleteDTO = UserDTO.UserDTOBuilder.anUserDTO()
                 .withUserStatus(UserStatusEnum.DELETED.getStatus())
