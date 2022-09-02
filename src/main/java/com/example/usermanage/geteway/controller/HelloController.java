@@ -1,4 +1,4 @@
-package com.example.usermanage.web.controller;
+package com.example.usermanage.geteway.controller;
 
 import com.example.usermanage.server.api.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
