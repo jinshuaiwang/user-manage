@@ -1,5 +1,6 @@
 package com.example.usermanage.server.api;
 
+import com.example.usermanage.server.service.dto.UserDTO;
 import com.example.usermanage.server.service.entity.User;
 
 /**
@@ -15,4 +16,11 @@ public interface UserService {
      * @return
      */
     User getUserById(long userId) throws Exception ;
+
+    /**
+     * 保存用户
+     * @param
+     * @return
+     */
+    long saveUser(UserDTO userDTO) throws Exception;
 }
