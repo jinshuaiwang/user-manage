@@ -2,10 +2,9 @@ package com.example.usermanage.server.service.mapper;
 
 import com.example.usermanage.server.service.dto.UserDTO;
 import com.example.usermanage.server.service.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 /**
  * Author wangjinshuai
@@ -25,7 +24,17 @@ public interface UserMapper {
             "<if test='userDTO.email != null'>a.email=#{userDTO.email}</if> " ,
             "</where> " ,
             "</script>"})
-    User getUserByDTO(@Param("userDTO")UserDTO userDTO);
+    List<User> getUserByDTO(@Param("userDTO")UserDTO userDTO);
+
+    @Update({"<script>",
+            "update common_user " ,
+            "<set> " ,
+            "<if test='userDTO.name != null'>`name`=#{userDTO.name}, </if> " ,
+            "<if test='userDTO.email != null'>email=#{userDTO.email}, </if> " ,
+            "</set> " ,
+            "<where> id = #{userDTO.id} </where> " ,
+            "</script>"})
+    Integer updateUser(@Param("userDTO")UserDTO userDTO);
 
     @Insert("insert into common_user (name, email) VALUES (#{user.name}, #{user.email})")
     Long saveUser(@Param("user") User user);

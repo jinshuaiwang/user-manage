@@ -7,6 +7,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * Author wangjinshuai
@@ -24,15 +27,34 @@ public class UserTests {
 
     @Test
     public void getUserById() throws Exception {
-        User user = userService.getUserById(1L);
-        Assert.assertTrue(user == null);
+        UserDTO userDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                                        .withId(1L)
+                                        .build();
+
+        List<User> userList = userService.getUserByDTO(userDTO);
+        Assert.assertTrue(!CollectionUtils.isEmpty(userList));
+
+
+        userDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withName("zhangsan")
+                .build();
+
+        userList = userService.getUserByDTO(userDTO);
+        Assert.assertTrue(!CollectionUtils.isEmpty(userList));
+
+        userDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withName("zhang123")
+                .build();
+
+        userList = userService.getUserByDTO(userDTO);
+        Assert.assertTrue(!CollectionUtils.isEmpty(userList));
     }
 
     @Test
     public void testSaveUser() throws Exception {
         UserDTO userDTO = UserDTO.UserDTOBuilder.anUserDTO()
-                .withName("zhang123")
-                .withEmail("zhang@126.com")
+                .withName("zhang1234")
+                .withEmail("zhang2@126.com")
                 .build();
 
         long userId = userService.saveUser(userDTO);
@@ -40,4 +62,16 @@ public class UserTests {
         Assert.assertTrue(userId > 0);
     }
 
+    @Test
+    public void testUpdateUser() throws Exception {
+        UserDTO userDTO = UserDTO.UserDTOBuilder.anUserDTO()
+                .withId(4L)
+                .withName("zhang4")
+                .withEmail("zhang1@126.com")
+                .build();
+
+        Integer count = userService.updateUser(userDTO);
+
+        Assert.assertTrue(count > 0);
+    }
 }

@@ -9,6 +9,9 @@ import com.example.usermanage.server.service.repository.UserRepository;
 import com.google.common.base.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 /**
  * Author wangjinshuai
@@ -21,8 +24,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User getUserById(long userId) throws Exception {
-        return userRepository.getUserById(userId);
+    public List<User> getUserByDTO(UserDTO userDTO) throws Exception {
+        return userRepository.getUserByDTO(userDTO);
     }
 
     @Override
@@ -36,9 +39,9 @@ public class UserServiceImpl implements UserService {
         UserDTO queryDTO = UserDTO.UserDTOBuilder.anUserDTO()
                                     .withEmail(userDTO.getEmail())
                                     .build();
-        User user = userRepository.getUserByDTO(queryDTO);
+        List<User> userList = userRepository.getUserByDTO(queryDTO);
 
-        if (user != null) {
+        if (!CollectionUtils.isEmpty(userList)) {
             throw new BizException("用户已存在");
         }
 
@@ -48,5 +51,13 @@ public class UserServiceImpl implements UserService {
         // TODO mq 发送邮件，回写发送状态
 
         return userId;
+    }
+
+    public Integer updateUser(UserDTO userDTO) {
+
+        Preconditions.checkNotNull(userDTO, "用户信息不能为空");
+        Preconditions.checkNotNull(userDTO.getId(), "用户标示不能为空");
+
+        return userRepository.updateUser(userDTO);
     }
 }
