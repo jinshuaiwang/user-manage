@@ -8,12 +8,13 @@ import com.example.usermanage.geteway.eunms.WebResultCodeEnum;
  **/
 public class WebResult {
 
-    private boolean success; // 成功失败标示位，便于前端判断使用
+    // 成功失败标示位，便于前端判断使用
+    private boolean success;
 
     /**
      * @see WebResultCodeEnum
      */
-    private int code; // 1 成功 2 失败 其他异常码持续补充
+    private int code;
 
     private String message; // 失败原因
 
